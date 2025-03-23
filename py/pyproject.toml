@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=65", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "macos-powertools"
+version = "0.0.1"
+dependencies = [
+]
+requires-python = ">=3.11"
+authors = [
+  { name = "Enji Cooper", email = "yaneurabeya@gmail.com" }
+]
+maintainers = [
+  { name = "Enji Cooper", email = "yaneurabeya@gmail.com" }
+]
+description = "SysAdmin and developer tools written specifically for MacOS."
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["macos"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13"
+]
+
+[project.scripts]
+"brew-service-pids.py" = "macos_powertools.brew.service_pids.__main__:main"
+
+[project.urls]
+Repository = "https://github.com/ngie-eign/macos-powertools"
+Issues = "https://github.com/ngie-eign/macos-powertools/issues"
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.coverage.run]
+branch = true
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+min_version = 4.0
+env_list =
+    coverage
+    py311
+    py312
+    py313
+
+[testenv]
+deps =
+    pytest
+commands =
+    python -m pytest {posargs:-v tests}
+
+[testenv:coverage]
+deps =
+    pytest
+    pytest-cov
+commands =
+    python -m pytest --cov=mac_powertools --cov-fail-under=80 --cov-report=html --cov-report=term \
+	{posargs:-v tests}
+
+[testenv:type]
+deps =
+    mypy
+commands =
+    python -m mypy {posargs:src}
+"""
