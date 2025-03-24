@@ -19,7 +19,6 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt upgrade -y
         sudo apt install -y shellcheck
     - name: Running shellcheck
       run: |
