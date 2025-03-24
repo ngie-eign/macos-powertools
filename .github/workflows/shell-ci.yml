@@ -1,6 +1,6 @@
 # Standard Shell CI workflows for the project.
 
-name: CI (python)
+name: CI (shell)
 
 on:
   push:
@@ -19,7 +19,8 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
+        sudo apt upgrade -y
         sudo apt install -y shellcheck
-    - name: Test with tox
+    - name: Running shellcheck
       run: |
-        shellcheck -x shell
+        find shell/ -exec shellcheck -x {} \;
