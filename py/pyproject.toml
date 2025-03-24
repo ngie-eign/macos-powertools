@@ -38,9 +38,10 @@ directory = "htmlcov"
 
 [tool.coverage.run]
 branch = true
+source = ["src/"]
 
-[tool.setuptools]
-package-dir = {"" = "src"}
+[tool.setputools]
+package-dir = {"" = "src/"}
 
 [tool.tox]
 legacy_tox_ini = """
@@ -60,11 +61,18 @@ commands =
 
 [testenv:coverage]
 deps =
+    coverage
     pytest
     pytest-cov
+#setenv =
+#    COVERAGE_FILE={work_dir}/.coverage
 commands =
-    python -m pytest --cov=mac_powertools --cov-fail-under=80 --cov-report=html --cov-report=term \
-	{posargs:-v tests}
+    #coverage run -m pytest {posargs:-v tests}
+    #coverage html
+    #coverage report --fail-under=80 --format=html --format=text
+    python -m pytest --cov=macos_powertools --cov-fail-under=80 --cov-report=html --cov-report=term \
+	{posargs:-vvvv tests}
+
 
 [testenv:type]
 deps =
