@@ -1,12 +1,14 @@
 #!/bin/sh
 #
 # Automatically upgrade Homebrew software.
+#
+# shellcheck shell=bash
 
-for rc in .zshrc; do
-	[ -e "$HOME/$rc" ] && . "$HOME/$rc"
-done
+if [ -r "$HOME/.zshrc" ]; then
+	source "$HOME/.zshrc"
+fi
 
-if out=$(for verb in update upgrade cleanup; do brew $verb; done); then
+if sh -c 'for verb in update upgrade cleanup; do brew $verb; done'; then
 	message=""
 	subtitle="completed successfully"
 else
@@ -14,6 +16,6 @@ else
 	subtitle="failed"
 	sound="-sound"
 fi
-terminal-notifier $sound \
+terminal-notifier "$sound" \
     -title "Brew Autoupdate" -message "$message" -subtitle "$subtitle" \
     -group "brew_autoupdate"
