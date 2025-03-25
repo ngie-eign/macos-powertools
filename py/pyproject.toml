@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "macos-powertools"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
 ]
 requires-python = ">=3.11"
@@ -28,6 +28,8 @@ classifiers = [
 
 [project.scripts]
 "brew-service-pids.py" = "macos_powertools.brew.service_pids.__main__:main"
+"ollama-oneshot.py" = "macos_powertools.cli.ollama_run.__main__:oneshot_main"
+"ollama-run.py" = "macos_powertools.cli.ollama_run.__main__:main"
 
 [project.urls]
 Repository = "https://github.com/ngie-eign/macos-powertools"
@@ -40,7 +42,10 @@ directory = "htmlcov"
 branch = true
 source = ["src/"]
 
-[tool.setputools]
+[tool.pytest.ini_options]
+timeout = 10
+
+[tool.setuptools]
 package-dir = {"" = "src/"}
 
 [tool.tox]
@@ -56,6 +61,7 @@ env_list =
 [testenv]
 deps =
     pytest
+    pytest-timeout
 commands =
     python -m pytest {posargs:-v tests}
 
@@ -64,12 +70,8 @@ deps =
     coverage
     pytest
     pytest-cov
-#setenv =
-#    COVERAGE_FILE={work_dir}/.coverage
+    pytest-timeout
 commands =
-    #coverage run -m pytest {posargs:-v tests}
-    #coverage html
-    #coverage report --fail-under=80 --format=html --format=text
     python -m pytest --cov=macos_powertools --cov-fail-under=80 --cov-report=html --cov-report=term \
 	{posargs:-vvvv tests}
 
