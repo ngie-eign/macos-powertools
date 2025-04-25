@@ -175,3 +175,10 @@ cython_debug/
 
 # MacOS ignore files.
 *.*DS_Store
+
+# CMake-related files.
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+install_manifest.txt
