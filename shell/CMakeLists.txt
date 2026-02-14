@@ -4,7 +4,10 @@ set(BINDIR $ENV{HOME}/.local/bin/)
 set(BINMODE OWNER_EXECUTE OWNER_READ)
 
 install(
-  PROGRAMS brew-autoupdate set-remote-power-settings show-hidden-files-in-finder
-           viexports zzz
+  DIRECTORY .
   DESTINATION ${BINDIR}
-  PERMISSIONS ${BINMODE})
+  FILES_MATCHING
+  REGEX "[cC]?[mM]ake.*" EXCLUDE
+  PATTERN "*.sh"
+  PERMISSIONS ${BINMODE}
+  )
